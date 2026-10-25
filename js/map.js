@@ -652,11 +652,31 @@ function fmtDauer(stunden) {
 async function schriftenBereit() {
   try {
     await Promise.all([
-      document.fonts.load('56px "Jacquard 24"'),
-      document.fonts.load('24px "Jacquarda Bastarda 9"'),
+      document.fonts.load('700 48px "Silkscreen"'),
       document.fonts.load('16px "Pixelify Sans"'),
+      document.fonts.load('600 16px "Pixelify Sans"'),
     ]);
   } catch (e) { /* ohne Webfonts geht's auch */ }
+}
+
+// Titel im Stil des Minecraft-Logos: schwarzer Rand, dunkle 3D-Kante, heller Verlauf
+function zeichneBlockText(ctx, text, x, y, groesse) {
+  ctx.font = `700 ${groesse}px "Silkscreen", monospace`;
+  ctx.textBaseline = 'alphabetic';
+  const r = Math.max(2, Math.round(groesse / 16));
+  const kante = Math.max(3, Math.round(groesse / 9));
+  ctx.fillStyle = '#111';
+  for (let dy = -r; dy <= kante + r; dy++) {
+    for (let dx = -r; dx <= r; dx++) ctx.fillText(text, x + dx, y + dy);
+  }
+  ctx.fillStyle = '#4a4850';
+  for (let dy = 1; dy <= kante; dy++) ctx.fillText(text, x, y + dy);
+  const verlauf = ctx.createLinearGradient(0, y - groesse * 0.75, 0, y);
+  verlauf.addColorStop(0, '#f3efec');
+  verlauf.addColorStop(0.55, '#d6cfcc');
+  verlauf.addColorStop(1, '#a9a2a3');
+  ctx.fillStyle = verlauf;
+  ctx.fillText(text, x, y);
 }
 
 async function erstelleRoutenBild(route, ergebnis, opt) {
@@ -677,13 +697,15 @@ async function erstelleRoutenBild(route, ergebnis, opt) {
   }
 
   // Titel
-  ctx.textBaseline = 'alphabetic';
-  ctx.font = '60px "Jacquard 24", serif';
-  ctx.fillStyle = '#141a2e';
-  ctx.fillText(route.name || 'Meine Alpentour', 36, 72);
-  ctx.fillStyle = '#f8fbff';
-  ctx.fillText(route.name || 'Meine Alpentour', 32, 68);
-  ctx.font = '26px "Jacquarda Bastarda 9", serif';
+  const titel = (route.name || 'Meine Alpentour').toUpperCase();
+  let titelGroesse = 48;
+  ctx.font = `700 ${titelGroesse}px "Silkscreen", monospace`;
+  while (titelGroesse > 22 && ctx.measureText(titel).width > 820) {
+    titelGroesse -= 2;
+    ctx.font = `700 ${titelGroesse}px "Silkscreen", monospace`;
+  }
+  zeichneBlockText(ctx, titel, 32, 66, titelGroesse);
+  ctx.font = '22px "Pixelify Sans", monospace';
   ctx.fillStyle = '#f2c14e';
   const unter = `${(MODI[route.modus] || MODI.wandern).name}${route.rund ? ' · Rundtour' : ''} · ${new Date(route.datum || Date.now()).toLocaleDateString('de-CH')}`;
   ctx.textAlign = 'right';
@@ -703,8 +725,8 @@ async function erstelleRoutenBild(route, ergebnis, opt) {
   ctx.fillStyle = '#efe6d2';
   ctx.fillRect(1020, 112, 228, 540);
   ctx.fillStyle = '#141a2e';
-  ctx.font = '36px "Jacquard 24", serif';
-  ctx.fillText('Etappen', 1034, 148);
+  ctx.font = '700 24px "Silkscreen", monospace';
+  ctx.fillText('ETAPPEN', 1034, 148);
   const folge = ergebnis.folge;
   const zeile = Math.min(44, Math.floor(470 / Math.max(1, folge.length)));
   folge.forEach((o, i) => {
@@ -716,7 +738,7 @@ async function erstelleRoutenBild(route, ergebnis, opt) {
     ctx.textBaseline = 'middle';
     ctx.fillText(String(i + 1), 1045 - ctx.measureText(String(i + 1)).width / 2, y + 12);
     ctx.fillStyle = '#141a2e';
-    ctx.font = `${zeile < 30 ? 17 : 21}px "Jacquarda Bastarda 9", serif`;
+    ctx.font = `600 ${zeile < 30 ? 15 : 18}px "Pixelify Sans", monospace`;
     let name = o.name;
     while (ctx.measureText(name).width > 170 && name.length > 3) name = name.slice(0, -2) + '…';
     ctx.fillText(name, 1064, y + 9);
@@ -744,8 +766,8 @@ async function erstelleRoutenBild(route, ergebnis, opt) {
     ctx.fillStyle = '#efe6d2'; ctx.fillRect(x, y, 224, 76);
     ctx.fillStyle = '#d9cba9'; ctx.fillRect(x, y + 72, 224, 4);
     ctx.fillStyle = '#6b5446';
-    ctx.font = '20px "Jacquarda Bastarda 9", serif';
-    ctx.fillText(titel, x + 12, y + 26);
+    ctx.font = '700 14px "Silkscreen", monospace';
+    ctx.fillText(titel.toUpperCase(), x + 12, y + 26);
     ctx.fillStyle = '#141a2e';
     ctx.font = '26px "Pixelify Sans", monospace';
     ctx.fillText(wert, x + 12, y + 60);
@@ -754,8 +776,8 @@ async function erstelleRoutenBild(route, ergebnis, opt) {
   ctx.fillStyle = sch.farbe;
   ctx.fillRect(976, 800, 200, 76);
   ctx.fillStyle = '#141a2e';
-  ctx.font = '20px "Jacquarda Bastarda 9", serif';
-  ctx.fillText('Schwierigkeit', 988, 826);
+  ctx.font = '700 14px "Silkscreen", monospace';
+  ctx.fillText('SCHWIERIGKEIT', 988, 826);
   ctx.font = '15px "Pixelify Sans", monospace';
   const woerter = sch.stufe.split(' ');
   let z = '', zy = 848;

@@ -18,9 +18,31 @@
   --papier-2: #d9cba9;
   --papier-3: #fff8e6;
   --px: 4px;
-  --titel: "Jacquard 24", "Pixelify Sans", serif;
-  --text: "Jacquarda Bastarda 9", "Pixelify Sans", serif;
+  --titel: "Silkscreen", "Pixelify Sans", monospace;
+  --text: "Pixelify Sans", monospace;
   --ui: "Pixelify Sans", monospace;
+  /* Blockschrift wie das Minecraft-Logo: schwarzer Rand + dunkle 3D-Kante */
+  --block-rand:
+    drop-shadow(2px 0 0 #111) drop-shadow(-2px 0 0 #111)
+    drop-shadow(0 2px 0 #111) drop-shadow(0 -2px 0 #111);
+  --block-kante:
+    drop-shadow(0 3px 0 #4a4850) drop-shadow(0 3px 0 #4a4850)
+    drop-shadow(0 2px 0 #111) drop-shadow(4px 6px 0 rgba(0, 0, 0, .35));
+}
+
+/* Grosse Titel: heller Verlauf, Rand, 3D-Kante */
+.block-titel, .held-text h1, .seitentitel h1, .abschnitt > h2, .logo span, .leer h2 {
+  font-family: var(--titel);
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #d9d4d2;
+  background: linear-gradient(180deg, #f3efec 0%, #d6cfcc 55%, #a9a2a3 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: none;
+  filter: var(--block-rand) var(--block-kante);
+  letter-spacing: 0.02em;
 }
 
 * { box-sizing: border-box; }
@@ -32,8 +54,8 @@ body {
   min-height: 100vh;
   color: var(--ink);
   font-family: var(--text);
-  font-size: 21px;
-  line-height: 1.35;
+  font-size: 18px;
+  line-height: 1.45;
   background: linear-gradient(180deg, #222d52 0 160px, var(--nacht) 160px 320px, #1a2342 320px 480px, #18213d 480px);
   background-color: #18213d;
   image-rendering: pixelated;
@@ -43,7 +65,7 @@ img, canvas { image-rendering: pixelated; image-rendering: crisp-edges; }
 
 a { color: inherit; }
 
-h1, h2, h3 { font-family: var(--titel); font-weight: 400; margin: 0; line-height: 1; }
+h1, h2, h3 { font-family: var(--titel); font-weight: 700; margin: 0; line-height: 1.1; }
 
 ::selection { background: var(--gold); color: var(--ink); }
 
@@ -82,7 +104,8 @@ h1, h2, h3 { font-family: var(--titel); font-weight: 400; margin: 0; line-height
   align-items: center;
   gap: 8px;
   font-family: var(--titel);
-  font-size: 26px;
+  font-weight: 700;
+  font-size: 18px;
   line-height: 1;
   color: var(--ink);
   background: var(--farbe);
@@ -143,12 +166,12 @@ h1, h2, h3 { font-family: var(--titel); font-weight: 400; margin: 0; line-height
   color: var(--schnee);
 }
 .logo img { height: 46px; }
-.logo span { font-family: var(--titel); font-size: 40px; text-shadow: 3px 3px 0 var(--jeans); }
+.logo span { font-size: 28px; }
 
 .nav { display: flex; gap: 6px; flex-wrap: wrap; }
 .nav a {
   font-family: var(--titel);
-  font-size: 26px;
+  font-size: 17px;
   color: var(--himmel-4);
   text-decoration: none;
   padding: 8px 14px 6px;
@@ -171,7 +194,7 @@ main { padding: 0 24px 64px; max-width: 1400px; margin: 0 auto; }
   gap: 16px;
   flex-wrap: wrap;
 }
-.seitentitel h1 { font-size: clamp(48px, 7vw, 84px); text-shadow: 5px 5px 0 var(--jeans), 10px 10px 0 var(--ink); }
+.seitentitel h1 { font-size: clamp(34px, 5.5vw, 64px); }
 .seitentitel p { margin: 10px 0 0; color: var(--himmel-4); max-width: 640px; }
 
 .fuss {
@@ -217,23 +240,22 @@ main { padding: 0 24px 64px; max-width: 1400px; margin: 0 auto; }
   top: 46%;
   transform: translate(-50%, -50%);
   text-align: center;
-  width: min(92%, 860px);
+  width: min(96%, 1100px);
   color: var(--schnee);
 }
 .held-text h1 {
-  font-size: clamp(64px, 13vw, 170px);
-  text-shadow: 6px 6px 0 var(--ink), 12px 12px 0 rgba(20, 26, 46, .45);
-  letter-spacing: 2px;
+  font-size: clamp(30px, 7.4vw, 100px);
+  white-space: nowrap;
 }
 .held-text p {
-  font-size: clamp(22px, 2.6vw, 32px);
+  font-size: clamp(18px, 2.2vw, 26px);
   margin: 10px auto 26px;
   background: var(--ink);
   display: inline-block;
   padding: 6px 16px 4px;
   box-shadow: 0 0 0 var(--px) var(--ink), var(--px) var(--px) 0 var(--px) var(--jeans);
 }
-.held-text .knopf { font-size: 34px; }
+.held-text .knopf { font-size: 24px; }
 
 .wanderer {
   position: absolute;
@@ -280,9 +302,8 @@ main { padding: 0 24px 64px; max-width: 1400px; margin: 0 auto; }
 .abschnitt { padding: 56px 0 8px; }
 .abschnitt > h2 {
   color: var(--schnee);
-  font-size: clamp(44px, 5vw, 64px);
-  text-shadow: 4px 4px 0 var(--jeans);
-  margin-bottom: 24px;
+  font-size: clamp(28px, 4vw, 44px);
+  margin-bottom: 28px;
 }
 
 .schritte { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
@@ -292,13 +313,13 @@ main { padding: 0 24px 64px; max-width: 1400px; margin: 0 auto; }
   place-items: center;
   width: 52px; height: 52px;
   font-family: var(--titel);
-  font-size: 38px;
+  font-size: 28px;
   background: var(--rot);
   color: var(--schnee);
   box-shadow: 0 0 0 var(--px) var(--ink);
   margin-bottom: 14px;
 }
-.schritt h3 { font-size: 36px; margin-bottom: 8px; }
+.schritt h3 { font-size: 24px; margin-bottom: 10px; }
 .schritt p { margin: 0; }
 .schritt canvas { width: 100%; height: auto; display: block; margin-top: 14px; box-shadow: 0 0 0 var(--px) var(--ink); }
 
@@ -306,7 +327,7 @@ main { padding: 0 24px 64px; max-width: 1400px; margin: 0 auto; }
 .gipfel-karte { padding: 0 0 16px; overflow: hidden; display: flex; flex-direction: column; transition: transform .1s steps(2); }
 .gipfel-karte:hover { transform: translateY(-6px); }
 .gipfel-karte canvas { width: 100%; display: block; border-bottom: var(--px) solid var(--ink); }
-.gipfel-karte h3 { font-size: 34px; margin: 12px 16px 2px; }
+.gipfel-karte h3 { font-size: 20px; margin: 14px 16px 4px; }
 .gipfel-karte .meta { margin: 0 16px 10px; font-family: var(--ui); font-size: 16px; color: var(--fels); }
 .gipfel-karte .knopf { margin: auto 16px 0; align-self: flex-start; }
 
@@ -319,7 +340,7 @@ main { padding: 0 24px 64px; max-width: 1400px; margin: 0 auto; }
 .planer { display: grid; grid-template-columns: 360px 1fr; gap: 24px; align-items: start; }
 
 .seitenleiste { padding: 20px; display: flex; flex-direction: column; gap: 18px; }
-.seitenleiste h2 { font-size: 34px; display: flex; align-items: center; gap: 10px; }
+.seitenleiste h2 { font-size: 20px; margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
 .seitenleiste h2 small { font-family: var(--ui); font-size: 15px; color: var(--fels); margin-left: auto; }
 
 label.feld { display: flex; flex-direction: column; gap: 6px; font-size: 19px; }
@@ -446,7 +467,7 @@ input[type="text"], input[type="search"], select {
 .modus { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin: var(--px); }
 .modus button {
   font-family: var(--titel);
-  font-size: 22px;
+  font-size: 13px;
   padding: 8px 4px 6px;
   border: 0;
   background: var(--papier-2);
@@ -462,7 +483,7 @@ input[type="text"], input[type="search"], select {
 .karten-wrap { position: relative; line-height: 0; }
 #karte { width: 100%; height: auto; display: block; cursor: crosshair; box-shadow: 0 0 0 var(--px) var(--ink); }
 .karten-kopf { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }
-.karten-kopf h2 { font-size: 40px; }
+.karten-kopf h2 { font-size: 26px; }
 .karten-kopf p { margin: 0; font-size: 17px; color: var(--fels); }
 
 .tooltip {
@@ -495,7 +516,7 @@ input[type="text"], input[type="search"], select {
 .aktionen { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
 
 .etappen { padding: 16px 20px; }
-.etappen h3 { font-size: 32px; margin-bottom: 8px; }
+.etappen h3 { font-size: 22px; margin-bottom: 10px; }
 .etappen table { width: 100%; border-collapse: collapse; font-size: 18px; }
 .etappen th { text-align: left; font-weight: 400; color: var(--fels); padding: 4px 8px; border-bottom: 3px solid var(--ink); }
 .etappen td { padding: 6px 8px; border-bottom: 2px dashed var(--papier-2); }
@@ -526,17 +547,17 @@ input[type="text"], input[type="search"], select {
 .routen-gitter { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 24px; }
 .routen-karte { padding: 12px 12px 16px; display: flex; flex-direction: column; gap: 10px; animation: reinploppen .3s steps(3); }
 .routen-karte canvas { width: 100%; display: block; box-shadow: 0 0 0 3px var(--ink); cursor: zoom-in; }
-.routen-karte h3 { font-size: 34px; }
+.routen-karte h3 { font-size: 22px; }
 .routen-karte .meta { font-family: var(--ui); font-size: 15px; color: var(--fels); }
 .routen-karte .ziele { font-size: 17px; margin: 0; }
 .routen-karte .zahlen { display: flex; gap: 8px; flex-wrap: wrap; }
 .routen-karte .zahlen span { font-family: var(--ui); font-size: 14px; background: var(--ink); color: var(--gold); padding: 3px 8px; }
 .routen-karte .aktionen { margin-top: auto; }
-.routen-karte .aktionen .knopf { font-size: 20px; padding: 8px 12px 6px; }
+.routen-karte .aktionen .knopf { font-size: 14px; padding: 8px 12px 6px; }
 
 .leer { text-align: center; padding: 48px 24px; color: var(--schnee); }
 .leer img { height: 160px; animation: wippen .6s steps(2) infinite; }
-.leer h2 { font-size: 52px; margin: 18px 0 8px; }
+.leer h2 { font-size: 36px; margin: 18px 0 12px; }
 .leer p { color: var(--himmel-4); margin: 0 0 20px; }
 
 .vorschau {
@@ -561,10 +582,10 @@ input[type="text"], input[type="search"], select {
 }
 
 @media (max-width: 640px) {
-  body { font-size: 19px; }
+  body { font-size: 17px; }
   .kopf { padding: 8px 16px; flex-direction: column; align-items: flex-start; }
-  .logo span { font-size: 32px; }
-  .nav a { font-size: 22px; padding: 6px 10px 4px; }
+  .logo span { font-size: 22px; }
+  .nav a { font-size: 14px; padding: 6px 10px 4px; }
   main { padding: 0 16px 48px; }
   .routen-gitter { grid-template-columns: 1fr; }
   .wanderer img { height: 84px; }
