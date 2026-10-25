@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gipfelpfad – Meine Routen</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jacquard+24&family=Jacquarda+Bastarda+9&family=Pixelify+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="kopf">
+    <a class="logo" href="Index.html"><img data-dude="2" alt=""><span>Gipfelpfad</span></a>
+    <nav class="nav">
+      <a href="Index.html">Start</a>
+      <a href="planer.html">Routenplaner</a>
+      <a href="routen.html" class="aktiv">Meine Routen</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="seitentitel">
+      <div>
+        <h1>Meine Routen</h1>
+        <p>Deine gespeicherten Touren – weiterplanen, als Pixel-Poster herunterladen oder aufräumen.</p>
+      </div>
+      <a class="knopf rot" href="planer.html">+ Neue Route</a>
+    </div>
+
+    <div class="routen-gitter" id="gitter"></div>
+  </main>
+
+  <div class="vorschau" id="vorschau">
+    <img id="vorschauBild" alt="Vorschau der Route">
+    <div class="aktionen">
+      <button class="knopf rot" id="vorschauLaden">▼ PNG herunterladen</button>
+      <button class="knopf papier" id="vorschauZu">✕ Schliessen</button>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"><img data-dude="2" alt=""><span id="toastText"></span></div>
+
+  <footer class="fuss">
+    <img data-dude="2" data-spiegeln alt=""> Gipfelpfad · Routen werden nur in diesem Browser gespeichert.
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/map.js"></script>
+  <script src="js/routen.js"></script>
+</body>
+</html>

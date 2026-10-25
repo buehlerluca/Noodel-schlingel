@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gipfelpfad – Routenplaner</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jacquard+24&family=Jacquarda+Bastarda+9&family=Pixelify+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="kopf">
+    <a class="logo" href="Index.html"><img data-dude="2" alt=""><span>Gipfelpfad</span></a>
+    <nav class="nav">
+      <a href="Index.html">Start</a>
+      <a href="planer.html" class="aktiv">Routenplaner</a>
+      <a href="routen.html">Meine Routen</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="seitentitel">
+      <div>
+        <h1>Routenplaner</h1>
+        <p>Wähl deine Berge und Ziele – der Pfad wird automatisch durch die Täler gebaut.</p>
+      </div>
+    </div>
+
+    <div class="planer">
+      <aside class="pixel-box seitenleiste">
+        <label class="feld">Name der Tour
+          <input type="text" id="routenName" maxlength="40" value="Meine Alpentour">
+        </label>
+
+        <div>
+          <h2>Ziele suchen</h2>
+          <input type="search" id="suche" placeholder="z. B. Matterhorn, Zermatt …" autocomplete="off">
+          <div class="filter" id="filter">
+            <button data-typ="alle" class="aktiv">Alle</button>
+            <button data-typ="gipfel">Gipfel</button>
+            <button data-typ="huette">Hütten</button>
+            <button data-typ="ort">Orte</button>
+          </div>
+          <ul class="ort-liste" id="ortListe"></ul>
+        </div>
+
+        <div>
+          <h2>Deine Route <small id="anzahl">0 Ziele</small></h2>
+          <ol class="ziel-liste" id="zielListe"></ol>
+        </div>
+
+        <div>
+          <h2>Unterwegs als</h2>
+          <div class="modus" id="modus">
+            <button data-modus="wandern" class="aktiv"><span class="ico">🥾</span>Wandern</button>
+            <button data-modus="hochtour"><span class="ico">⛏</span>Hochtour</button>
+            <button data-modus="velo"><span class="ico">🚲</span>Velo</button>
+          </div>
+        </div>
+
+        <label class="schalter"><input type="checkbox" id="optimieren" checked> Reihenfolge optimieren</label>
+        <label class="schalter"><input type="checkbox" id="rund"> Rundtour (zurück zum Start)</label>
+
+        <button class="knopf papier klein" id="btnLeeren">✕ Alles leeren</button>
+      </aside>
+
+      <section class="karten-bereich">
+        <div class="pixel-box karten-rahmen">
+          <div class="karten-kopf">
+            <h2 id="kartenTitel">Meine Alpentour</h2>
+            <p>Klick auf ein Symbol = Ziel an/aus · Klick ins Gelände = eigener Wegpunkt</p>
+          </div>
+          <div class="karten-wrap" id="kartenWrap">
+            <canvas id="karte" width="960" height="540"></canvas>
+            <div class="tooltip" id="tooltip"></div>
+          </div>
+          <canvas id="profil" width="960" height="120"></canvas>
+        </div>
+
+        <div class="stats" id="stats"></div>
+
+        <div class="aktionen">
+          <button class="knopf rot" id="btnBild">▼ Als Bild speichern</button>
+          <button class="knopf gruen" id="btnSpeichern">★ In „Meine Routen" ablegen</button>
+          <button class="knopf blau" id="btnLaufen">▶ Wanderer losschicken</button>
+        </div>
+
+        <div class="pixel-box etappen" id="etappenBox">
+          <h3>Etappen</h3>
+          <div id="etappen"></div>
+          <p class="hinweis">Alle Werte sind grobe Schätzungen aus einem Pixel-Höhenmodell – plane echte Touren immer mit offiziellen Karten, Wetterbericht und Lawinenbulletin.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <div class="toast" id="toast"><img data-dude="2" alt=""><span id="toastText"></span></div>
+
+  <footer class="fuss">
+    <img data-dude="2" data-spiegeln alt=""> Gipfelpfad · Pixel-Routen zur Inspiration
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/map.js"></script>
+  <script src="js/planer.js"></script>
+</body>
+</html>

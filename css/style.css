@@ -1,0 +1,576 @@
+:root {
+  --ink: #141a2e;
+  --nacht: #1d2747;
+  --himmel-1: #2b3a66;
+  --himmel-2: #4f6fae;
+  --himmel-3: #7fb6e6;
+  --himmel-4: #bcdbf5;
+  --schnee: #f8fbff;
+  --fels: #6b5446;
+  --fels-2: #998473;
+  --moos: #4f8a48;
+  --moos-2: #2b5a34;
+  --beere: #8a3a3a;
+  --rot: #d9472b;
+  --gold: #f2c14e;
+  --jeans: #2c5985;
+  --papier: #efe6d2;
+  --papier-2: #d9cba9;
+  --papier-3: #fff8e6;
+  --px: 4px;
+  --titel: "Jacquard 24", "Pixelify Sans", serif;
+  --text: "Jacquarda Bastarda 9", "Pixelify Sans", serif;
+  --ui: "Pixelify Sans", monospace;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--ink);
+  font-family: var(--text);
+  font-size: 21px;
+  line-height: 1.35;
+  background: linear-gradient(180deg, #222d52 0 160px, var(--nacht) 160px 320px, #1a2342 320px 480px, #18213d 480px);
+  background-color: #18213d;
+  image-rendering: pixelated;
+}
+
+img, canvas { image-rendering: pixelated; image-rendering: crisp-edges; }
+
+a { color: inherit; }
+
+h1, h2, h3 { font-family: var(--titel); font-weight: 400; margin: 0; line-height: 1; }
+
+::selection { background: var(--gold); color: var(--ink); }
+
+/* ---------- Pixel-Rahmen ---------- */
+
+.pixel-box {
+  position: relative;
+  background: var(--papier);
+  margin: var(--px);
+  box-shadow:
+    0 calc(-1 * var(--px)) 0 0 var(--ink),
+    0 var(--px) 0 0 var(--ink),
+    calc(-1 * var(--px)) 0 0 0 var(--ink),
+    var(--px) 0 0 0 var(--ink),
+    inset calc(-1 * var(--px)) calc(-1 * var(--px)) 0 0 var(--papier-2),
+    inset var(--px) var(--px) 0 0 var(--papier-3);
+}
+
+.pixel-box.dunkel {
+  background: var(--nacht);
+  color: var(--schnee);
+  box-shadow:
+    0 calc(-1 * var(--px)) 0 0 var(--ink),
+    0 var(--px) 0 0 var(--ink),
+    calc(-1 * var(--px)) 0 0 0 var(--ink),
+    var(--px) 0 0 0 var(--ink),
+    inset calc(-1 * var(--px)) calc(-1 * var(--px)) 0 0 #111733,
+    inset var(--px) var(--px) 0 0 #34437a;
+}
+
+.knopf {
+  --farbe: var(--gold);
+  --schatten: #b9862a;
+  --licht: #ffe39a;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--titel);
+  font-size: 26px;
+  line-height: 1;
+  color: var(--ink);
+  background: var(--farbe);
+  border: 0;
+  padding: 12px 18px 10px;
+  margin: var(--px);
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow:
+    0 calc(-1 * var(--px)) 0 0 var(--ink),
+    0 var(--px) 0 0 var(--ink),
+    calc(-1 * var(--px)) 0 0 0 var(--ink),
+    var(--px) 0 0 0 var(--ink),
+    inset calc(-1 * var(--px)) calc(-1 * var(--px)) 0 0 var(--schatten),
+    inset var(--px) var(--px) 0 0 var(--licht),
+    var(--px) calc(2 * var(--px)) 0 0 rgba(0, 0, 0, .35);
+  transition: transform .06s steps(1);
+}
+.knopf:hover { transform: translateY(-2px); filter: brightness(1.06); }
+.knopf:active { transform: translate(2px, 4px); box-shadow:
+    0 calc(-1 * var(--px)) 0 0 var(--ink),
+    0 var(--px) 0 0 var(--ink),
+    calc(-1 * var(--px)) 0 0 0 var(--ink),
+    var(--px) 0 0 0 var(--ink),
+    inset var(--px) var(--px) 0 0 var(--schatten); }
+.knopf:disabled { filter: grayscale(1) opacity(.6); cursor: not-allowed; transform: none; }
+.knopf.rot { --farbe: var(--rot); --schatten: #9a2c18; --licht: #f07a5e; color: var(--schnee); }
+.knopf.gruen { --farbe: var(--moos); --schatten: #2b5a34; --licht: #7db452; color: var(--schnee); }
+.knopf.blau { --farbe: var(--jeans); --schatten: #1c3a5a; --licht: #4f84bd; color: var(--schnee); }
+.knopf.papier { --farbe: var(--papier); --schatten: var(--papier-2); --licht: var(--papier-3); }
+.knopf.klein { font-size: 18px; padding: 6px 10px 5px; font-family: var(--ui); }
+
+.knopf:focus-visible, input:focus-visible, select:focus-visible, button:focus-visible {
+  outline: var(--px) dashed var(--gold);
+  outline-offset: 4px;
+}
+
+/* ---------- Kopfzeile ---------- */
+
+.kopf {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 24px;
+  background: var(--ink);
+  border-bottom: var(--px) solid #34437a;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--schnee);
+}
+.logo img { height: 46px; }
+.logo span { font-family: var(--titel); font-size: 40px; text-shadow: 3px 3px 0 var(--jeans); }
+
+.nav { display: flex; gap: 6px; flex-wrap: wrap; }
+.nav a {
+  font-family: var(--titel);
+  font-size: 26px;
+  color: var(--himmel-4);
+  text-decoration: none;
+  padding: 8px 14px 6px;
+  border: var(--px) solid transparent;
+}
+.nav a:hover { color: var(--gold); border-color: #34437a; }
+.nav a.aktiv { color: var(--ink); background: var(--gold); border-color: var(--ink); box-shadow: 0 0 0 var(--px) var(--gold); }
+.nav a.aktiv::before { content: "▸ "; }
+
+/* ---------- Seiteninhalt ---------- */
+
+main { padding: 0 24px 64px; max-width: 1400px; margin: 0 auto; }
+
+.seitentitel {
+  color: var(--schnee);
+  padding: 40px 4px 20px;
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.seitentitel h1 { font-size: clamp(48px, 7vw, 84px); text-shadow: 5px 5px 0 var(--jeans), 10px 10px 0 var(--ink); }
+.seitentitel p { margin: 10px 0 0; color: var(--himmel-4); max-width: 640px; }
+
+.fuss {
+  text-align: center;
+  color: #7f8bb0;
+  padding: 28px 16px 40px;
+  font-size: 18px;
+  border-top: var(--px) solid #24305a;
+}
+.fuss img { height: 40px; vertical-align: middle; }
+
+/* ---------- Startseite ---------- */
+
+.held {
+  position: relative;
+  height: min(86vh, 760px);
+  min-height: 520px;
+  overflow: hidden;
+  background: #7fb6e6;
+  border-bottom: 8px solid var(--ink);
+}
+.held-bild {
+  position: absolute;
+  inset: -40px;
+  background: url("../hikeing.jpg") center 32% / cover no-repeat;
+  image-rendering: pixelated;
+  transform: translate(var(--mx, 0), var(--my, 0)) scale(1.06);
+  transition: transform .25s steps(4);
+}
+.held::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(20, 26, 46, .0) 40%, rgba(20, 26, 46, .75) 100%);
+  pointer-events: none;
+}
+#flocken { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2; }
+
+.held-text {
+  position: absolute;
+  z-index: 3;
+  left: 50%;
+  top: 46%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  width: min(92%, 860px);
+  color: var(--schnee);
+}
+.held-text h1 {
+  font-size: clamp(64px, 13vw, 170px);
+  text-shadow: 6px 6px 0 var(--ink), 12px 12px 0 rgba(20, 26, 46, .45);
+  letter-spacing: 2px;
+}
+.held-text p {
+  font-size: clamp(22px, 2.6vw, 32px);
+  margin: 10px auto 26px;
+  background: var(--ink);
+  display: inline-block;
+  padding: 6px 16px 4px;
+  box-shadow: 0 0 0 var(--px) var(--ink), var(--px) var(--px) 0 var(--px) var(--jeans);
+}
+.held-text .knopf { font-size: 34px; }
+
+.wanderer {
+  position: absolute;
+  z-index: 4;
+  bottom: 18px;
+  left: 0;
+  cursor: pointer;
+  animation: laufen 26s linear infinite;
+}
+.wanderer img { height: 120px; display: block; animation: wippen .5s steps(2) infinite; }
+.wanderer.dreh img { transform: scaleX(-1); }
+.blase {
+  position: absolute;
+  bottom: 132px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  background: var(--schnee);
+  color: var(--ink);
+  font-size: 20px;
+  padding: 6px 12px 4px;
+  box-shadow: 0 0 0 var(--px) var(--ink);
+  opacity: 0;
+  pointer-events: none;
+}
+.blase::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -12px;
+  border: 6px solid transparent;
+  border-top-color: var(--ink);
+}
+.blase.zeigen { opacity: 1; }
+.wanderer.springt img { animation: springen .5s steps(4); }
+
+@keyframes laufen {
+  0% { transform: translateX(-140px); }
+  100% { transform: translateX(calc(100vw + 40px)); }
+}
+@keyframes wippen { 50% { translate: 0 -4px; } }
+@keyframes springen { 50% { translate: 0 -48px; } }
+
+.abschnitt { padding: 56px 0 8px; }
+.abschnitt > h2 {
+  color: var(--schnee);
+  font-size: clamp(44px, 5vw, 64px);
+  text-shadow: 4px 4px 0 var(--jeans);
+  margin-bottom: 24px;
+}
+
+.schritte { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+.schritt { padding: 24px 24px 20px; }
+.schritt .nr {
+  display: inline-grid;
+  place-items: center;
+  width: 52px; height: 52px;
+  font-family: var(--titel);
+  font-size: 38px;
+  background: var(--rot);
+  color: var(--schnee);
+  box-shadow: 0 0 0 var(--px) var(--ink);
+  margin-bottom: 14px;
+}
+.schritt h3 { font-size: 36px; margin-bottom: 8px; }
+.schritt p { margin: 0; }
+.schritt canvas { width: 100%; height: auto; display: block; margin-top: 14px; box-shadow: 0 0 0 var(--px) var(--ink); }
+
+.gipfel-karten { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
+.gipfel-karte { padding: 0 0 16px; overflow: hidden; display: flex; flex-direction: column; transition: transform .1s steps(2); }
+.gipfel-karte:hover { transform: translateY(-6px); }
+.gipfel-karte canvas { width: 100%; display: block; border-bottom: var(--px) solid var(--ink); }
+.gipfel-karte h3 { font-size: 34px; margin: 12px 16px 2px; }
+.gipfel-karte .meta { margin: 0 16px 10px; font-family: var(--ui); font-size: 16px; color: var(--fels); }
+.gipfel-karte .knopf { margin: auto 16px 0; align-self: flex-start; }
+
+.mini-karte-box { padding: 12px; }
+.mini-karte-box canvas { width: 100%; display: block; cursor: crosshair; }
+.mini-karte-box .info { font-family: var(--ui); font-size: 16px; padding: 10px 4px 0; min-height: 30px; }
+
+/* ---------- Planer ---------- */
+
+.planer { display: grid; grid-template-columns: 360px 1fr; gap: 24px; align-items: start; }
+
+.seitenleiste { padding: 20px; display: flex; flex-direction: column; gap: 18px; }
+.seitenleiste h2 { font-size: 34px; display: flex; align-items: center; gap: 10px; }
+.seitenleiste h2 small { font-family: var(--ui); font-size: 15px; color: var(--fels); margin-left: auto; }
+
+label.feld { display: flex; flex-direction: column; gap: 6px; font-size: 19px; }
+
+input[type="text"], input[type="search"], select {
+  font-family: var(--ui);
+  font-size: 17px;
+  color: var(--ink);
+  background: var(--papier-3);
+  border: 0;
+  padding: 10px 12px;
+  box-shadow: 0 0 0 var(--px) var(--ink), inset var(--px) var(--px) 0 0 var(--papier-2);
+  margin: var(--px);
+  width: calc(100% - 2 * var(--px));
+  border-radius: 0;
+}
+
+.filter { display: flex; gap: 4px; flex-wrap: wrap; margin: 0 var(--px); }
+.filter button {
+  font-family: var(--ui);
+  font-size: 15px;
+  border: 0;
+  padding: 5px 9px;
+  background: var(--papier-2);
+  color: var(--ink);
+  cursor: pointer;
+  box-shadow: 0 0 0 2px var(--ink);
+  margin: 2px;
+}
+.filter button.aktiv { background: var(--ink); color: var(--gold); }
+
+.ort-liste {
+  list-style: none;
+  margin: 0;
+  padding: 4px;
+  max-height: 290px;
+  overflow-y: auto;
+  background: var(--papier-3);
+  box-shadow: 0 0 0 var(--px) var(--ink);
+  margin: var(--px);
+  scrollbar-color: var(--fels) var(--papier-2);
+}
+.ort-liste li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  cursor: pointer;
+  font-size: 19px;
+}
+.ort-liste li:nth-child(odd) { background: rgba(217, 203, 169, .35); }
+.ort-liste li:hover { background: var(--gold); }
+.ort-liste li.drin { color: var(--moos-2); }
+.ort-liste li.drin .plus { background: var(--moos); color: var(--schnee); }
+.ort-liste .plus {
+  font-family: var(--ui);
+  width: 26px; height: 26px;
+  display: grid; place-items: center;
+  background: var(--ink);
+  color: var(--gold);
+  flex: none;
+  font-size: 18px;
+}
+.ort-liste .name { flex: 1; }
+.ort-liste .hoehe { font-family: var(--ui); font-size: 14px; color: var(--fels); }
+.typ-punkt { width: 18px; flex: none; font-family: var(--ui); font-size: 15px; text-align: center; }
+.typ-gipfel { color: var(--fels); }
+.typ-gipfel::before { content: "▲"; }
+.typ-ort { color: var(--rot); }
+.typ-ort::before { content: "●"; }
+.typ-huette { color: #7a4a2e; }
+.typ-huette::before { content: "⌂"; font-size: 19px; }
+.typ-eigen { color: var(--gold); }
+.typ-eigen::before { content: "◆"; }
+
+.ziel-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.ziel-liste li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--papier-3);
+  padding: 6px 6px 6px 0;
+  box-shadow: 0 0 0 3px var(--ink);
+  margin: 3px;
+  animation: reinploppen .25s steps(3);
+}
+.ziel-liste .nr {
+  font-family: var(--ui);
+  min-width: 34px;
+  align-self: stretch;
+  display: grid; place-items: center;
+  background: var(--rot);
+  color: var(--schnee);
+  font-size: 17px;
+}
+.ziel-liste li:first-child .nr { background: var(--moos); }
+.ziel-liste .name { flex: 1; font-size: 19px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ziel-liste .name input { margin: 0; padding: 4px 6px; font-size: 15px; width: 100%; box-shadow: 0 0 0 2px var(--ink); }
+.ziel-liste .hoehe { font-family: var(--ui); font-size: 13px; color: var(--fels); display: block; }
+.ziel-liste button {
+  font-family: var(--ui);
+  width: 28px; height: 28px;
+  border: 0;
+  background: var(--papier-2);
+  box-shadow: 0 0 0 2px var(--ink);
+  cursor: pointer;
+  font-size: 14px;
+  flex: none;
+  color: var(--ink);
+}
+.ziel-liste button:hover { background: var(--gold); }
+.ziel-liste button.weg:hover { background: var(--rot); color: var(--schnee); }
+.ziel-liste button:disabled { opacity: .3; cursor: default; background: var(--papier-2); }
+.leer-hinweis { font-size: 18px; color: var(--fels); padding: 10px; text-align: center; border: 3px dashed var(--papier-2); }
+
+@keyframes reinploppen { 0% { transform: scale(.6); } 60% { transform: scale(1.05); } }
+
+.schalter { display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 19px; user-select: none; }
+.schalter input { appearance: none; width: 44px; height: 24px; background: var(--papier-2); box-shadow: 0 0 0 3px var(--ink); position: relative; cursor: pointer; margin: 3px; flex: none; }
+.schalter input::after { content: ""; position: absolute; top: 4px; left: 4px; width: 16px; height: 16px; background: var(--ink); transition: left .1s steps(2); }
+.schalter input:checked { background: var(--moos); }
+.schalter input:checked::after { left: 24px; background: var(--schnee); }
+
+.modus { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin: var(--px); }
+.modus button {
+  font-family: var(--titel);
+  font-size: 22px;
+  padding: 8px 4px 6px;
+  border: 0;
+  background: var(--papier-2);
+  box-shadow: 0 0 0 3px var(--ink);
+  cursor: pointer;
+  color: var(--ink);
+}
+.modus button .ico { display: block; font-size: 22px; font-family: var(--ui); }
+.modus button.aktiv { background: var(--jeans); color: var(--schnee); }
+
+.karten-bereich { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
+.karten-rahmen { padding: 12px; }
+.karten-wrap { position: relative; line-height: 0; }
+#karte { width: 100%; height: auto; display: block; cursor: crosshair; box-shadow: 0 0 0 var(--px) var(--ink); }
+.karten-kopf { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }
+.karten-kopf h2 { font-size: 40px; }
+.karten-kopf p { margin: 0; font-size: 17px; color: var(--fels); }
+
+.tooltip {
+  position: absolute;
+  pointer-events: none;
+  background: var(--ink);
+  color: var(--schnee);
+  font-family: var(--ui);
+  font-size: 14px;
+  line-height: 1.3;
+  padding: 6px 10px;
+  box-shadow: 0 0 0 2px var(--gold);
+  white-space: nowrap;
+  z-index: 5;
+  opacity: 0;
+  transform: translate(14px, 14px);
+}
+.tooltip.zeigen { opacity: 1; }
+.tooltip b { color: var(--gold); font-weight: 600; }
+
+#profil { width: 100%; height: auto; display: block; margin-top: 16px; box-shadow: 0 0 0 var(--px) var(--ink); }
+
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 14px; }
+.stat { padding: 14px 16px 12px; }
+.stat .titel { font-size: 18px; color: var(--fels); }
+.stat .wert { font-family: var(--ui); font-size: 24px; font-weight: 600; line-height: 1.1; margin-top: 4px; }
+.stat.schwierig { color: var(--ink); }
+.stat.schwierig .wert { font-size: 18px; }
+
+.aktionen { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+
+.etappen { padding: 16px 20px; }
+.etappen h3 { font-size: 32px; margin-bottom: 8px; }
+.etappen table { width: 100%; border-collapse: collapse; font-size: 18px; }
+.etappen th { text-align: left; font-weight: 400; color: var(--fels); padding: 4px 8px; border-bottom: 3px solid var(--ink); }
+.etappen td { padding: 6px 8px; border-bottom: 2px dashed var(--papier-2); }
+.etappen td.zahl, .etappen th.zahl { text-align: right; font-family: var(--ui); font-size: 15px; }
+.hinweis { font-size: 16px; color: var(--fels); margin: 10px 0 0; }
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 28px;
+  transform: translate(-50%, 140px);
+  z-index: 100;
+  background: var(--ink);
+  color: var(--schnee);
+  padding: 12px 20px 10px;
+  font-size: 22px;
+  box-shadow: 0 0 0 var(--px) var(--gold), 8px 8px 0 var(--px) rgba(0, 0, 0, .4);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: transform .25s steps(5);
+}
+.toast img { height: 44px; }
+.toast.zeigen { transform: translate(-50%, 0); }
+
+/* ---------- Meine Routen ---------- */
+
+.routen-gitter { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 24px; }
+.routen-karte { padding: 12px 12px 16px; display: flex; flex-direction: column; gap: 10px; animation: reinploppen .3s steps(3); }
+.routen-karte canvas { width: 100%; display: block; box-shadow: 0 0 0 3px var(--ink); cursor: zoom-in; }
+.routen-karte h3 { font-size: 34px; }
+.routen-karte .meta { font-family: var(--ui); font-size: 15px; color: var(--fels); }
+.routen-karte .ziele { font-size: 17px; margin: 0; }
+.routen-karte .zahlen { display: flex; gap: 8px; flex-wrap: wrap; }
+.routen-karte .zahlen span { font-family: var(--ui); font-size: 14px; background: var(--ink); color: var(--gold); padding: 3px 8px; }
+.routen-karte .aktionen { margin-top: auto; }
+.routen-karte .aktionen .knopf { font-size: 20px; padding: 8px 12px 6px; }
+
+.leer { text-align: center; padding: 48px 24px; color: var(--schnee); }
+.leer img { height: 160px; animation: wippen .6s steps(2) infinite; }
+.leer h2 { font-size: 52px; margin: 18px 0 8px; }
+.leer p { color: var(--himmel-4); margin: 0 0 20px; }
+
+.vorschau {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(10, 14, 28, .88);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  flex-direction: column;
+  gap: 16px;
+}
+.vorschau.offen { display: flex; }
+.vorschau img { max-width: 100%; max-height: calc(100vh - 140px); box-shadow: 0 0 0 var(--px) var(--gold); }
+
+/* ---------- Responsiv ---------- */
+
+@media (max-width: 1000px) {
+  .planer { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 640px) {
+  body { font-size: 19px; }
+  .kopf { padding: 8px 16px; flex-direction: column; align-items: flex-start; }
+  .logo span { font-size: 32px; }
+  .nav a { font-size: 22px; padding: 6px 10px 4px; }
+  main { padding: 0 16px 48px; }
+  .routen-gitter { grid-template-columns: 1fr; }
+  .wanderer img { height: 84px; }
+  .blase { bottom: 96px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}

@@ -1,1 +1,80 @@
-hallo
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gipfelpfad – Start</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jacquard+24&family=Jacquarda+Bastarda+9&family=Pixelify+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="kopf">
+    <a class="logo" href="Index.html"><img data-dude="2" alt=""><span>Gipfelpfad</span></a>
+    <nav class="nav">
+      <a href="Index.html" class="aktiv">Start</a>
+      <a href="planer.html">Routenplaner</a>
+      <a href="routen.html">Meine Routen</a>
+    </nav>
+  </header>
+
+  <section class="held" id="held">
+    <div class="held-bild"></div>
+    <canvas id="flocken"></canvas>
+    <div class="held-text">
+      <h1>Gipfelpfad</h1>
+      <p>Dein pixeliger Routenplaner für die Alpen</p><br>
+      <a class="knopf rot" href="planer.html">▲ Route planen</a>
+    </div>
+    <div class="wanderer" id="wanderer" title="Klick mich!">
+      <div class="blase" id="blase">Hoi!</div>
+      <img data-dude="6" alt="Pixel-Wanderer">
+    </div>
+  </section>
+
+  <main>
+    <section class="abschnitt">
+      <h2>So geht's</h2>
+      <div class="schritte">
+        <article class="pixel-box schritt">
+          <div class="nr">1</div>
+          <h3>Ziele wählen</h3>
+          <p>Such dir Gipfel, Hütten und Orte aus der Liste – oder klick einfach irgendwo auf die Karte für einen eigenen Wegpunkt.</p>
+        </article>
+        <article class="pixel-box schritt">
+          <div class="nr">2</div>
+          <h3>Route bauen</h3>
+          <p>Gipfelpfad sucht den Weg durch die Täler, ordnet die Etappen clever und rechnet Distanz, Höhenmeter und Tage aus.</p>
+        </article>
+        <article class="pixel-box schritt">
+          <div class="nr">3</div>
+          <h3>Als Bild speichern</h3>
+          <p>Lade deine Tour als Pixel-Poster (PNG) herunter oder leg sie unter „Meine Routen" ab, um sie später weiterzuplanen.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="abschnitt">
+      <h2>Die Alpen in Pixeln</h2>
+      <div class="pixel-box mini-karte-box">
+        <canvas id="miniKarte" width="640" height="360"></canvas>
+        <div class="info" id="miniInfo">Fahr mit der Maus über die Karte – Klick auf ein Symbol startet direkt eine Route.</div>
+      </div>
+    </section>
+
+    <section class="abschnitt">
+      <h2>Beliebte Ziele</h2>
+      <div class="gipfel-karten" id="gipfelKarten"></div>
+    </section>
+  </main>
+
+  <footer class="fuss">
+    <img data-dude="2" data-spiegeln alt=""> Gipfelpfad · Pixel-Routen zur Inspiration – vor echten Touren immer Wetter, Verhältnisse und offizielle Karten prüfen.
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/map.js"></script>
+  <script src="js/start.js"></script>
+</body>
+</html>

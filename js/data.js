@@ -1,0 +1,72 @@
+// Ziele in den Alpen: Gipfel, Orte und Hütten (lat/lon in Grad, h in Metern)
+const ALPEN_ORTE = [
+  // Gipfel
+  { id: 'montblanc',      name: 'Mont Blanc',        lat: 45.8326, lon: 6.8652,  h: 4808, typ: 'gipfel', land: 'FR/IT' },
+  { id: 'dufourspitze',   name: 'Dufourspitze',      lat: 45.9369, lon: 7.8668,  h: 4634, typ: 'gipfel', land: 'CH/IT' },
+  { id: 'dom',            name: 'Dom',               lat: 46.0941, lon: 7.8586,  h: 4545, typ: 'gipfel', land: 'CH' },
+  { id: 'weisshorn',      name: 'Weisshorn',         lat: 46.1013, lon: 7.7161,  h: 4506, typ: 'gipfel', land: 'CH' },
+  { id: 'matterhorn',     name: 'Matterhorn',        lat: 45.9763, lon: 7.6586,  h: 4478, typ: 'gipfel', land: 'CH/IT' },
+  { id: 'grandcombin',    name: 'Grand Combin',      lat: 45.9375, lon: 7.2992,  h: 4314, typ: 'gipfel', land: 'CH' },
+  { id: 'finsteraarhorn', name: 'Finsteraarhorn',    lat: 46.5372, lon: 8.1261,  h: 4274, typ: 'gipfel', land: 'CH' },
+  { id: 'jungfrau',       name: 'Jungfrau',          lat: 46.5367, lon: 7.9625,  h: 4158, typ: 'gipfel', land: 'CH' },
+  { id: 'moench',         name: 'Mönch',             lat: 46.5585, lon: 7.9973,  h: 4107, typ: 'gipfel', land: 'CH' },
+  { id: 'ecrins',         name: 'Barre des Écrins',  lat: 44.9222, lon: 6.3600,  h: 4102, typ: 'gipfel', land: 'FR' },
+  { id: 'granparadiso',   name: 'Gran Paradiso',     lat: 45.5178, lon: 7.2667,  h: 4061, typ: 'gipfel', land: 'IT' },
+  { id: 'pizbernina',     name: 'Piz Bernina',       lat: 46.3825, lon: 9.9081,  h: 4049, typ: 'gipfel', land: 'CH' },
+  { id: 'meije',          name: 'La Meije',          lat: 45.0050, lon: 6.3083,  h: 3984, typ: 'gipfel', land: 'FR' },
+  { id: 'eiger',          name: 'Eiger',             lat: 46.5776, lon: 8.0053,  h: 3967, typ: 'gipfel', land: 'CH' },
+  { id: 'ortler',         name: 'Ortler',            lat: 46.5089, lon: 10.5450, h: 3905, typ: 'gipfel', land: 'IT' },
+  { id: 'pizpalue',       name: 'Piz Palü',          lat: 46.3781, lon: 9.9597,  h: 3900, typ: 'gipfel', land: 'CH/IT' },
+  { id: 'monteviso',      name: 'Monte Viso',        lat: 44.6672, lon: 7.0903,  h: 3841, typ: 'gipfel', land: 'IT' },
+  { id: 'grossglockner',  name: 'Großglockner',      lat: 47.0742, lon: 12.6947, h: 3798, typ: 'gipfel', land: 'AT' },
+  { id: 'wildspitze',     name: 'Wildspitze',        lat: 46.8853, lon: 10.8672, h: 3768, typ: 'gipfel', land: 'AT' },
+  { id: 'grossvenediger', name: 'Großvenediger',     lat: 47.1094, lon: 12.3461, h: 3657, typ: 'gipfel', land: 'AT' },
+  { id: 'toedi',          name: 'Tödi',              lat: 46.8114, lon: 8.9150,  h: 3614, typ: 'gipfel', land: 'CH' },
+  { id: 'marmolada',      name: 'Marmolada',         lat: 46.4344, lon: 11.8508, h: 3343, typ: 'gipfel', land: 'IT' },
+  { id: 'pizbuin',        name: 'Piz Buin',          lat: 46.8442, lon: 10.1189, h: 3312, typ: 'gipfel', land: 'CH/AT' },
+  { id: 'titlis',         name: 'Titlis',            lat: 46.7722, lon: 8.4375,  h: 3238, typ: 'gipfel', land: 'CH' },
+  { id: 'dreizinnen',     name: 'Drei Zinnen',       lat: 46.6186, lon: 12.3050, h: 2999, typ: 'gipfel', land: 'IT' },
+  { id: 'dachstein',      name: 'Dachstein',         lat: 47.4753, lon: 13.6061, h: 2995, typ: 'gipfel', land: 'AT' },
+  { id: 'zugspitze',      name: 'Zugspitze',         lat: 47.4211, lon: 10.9853, h: 2962, typ: 'gipfel', land: 'DE/AT' },
+  { id: 'triglav',        name: 'Triglav',           lat: 46.3786, lon: 13.8367, h: 2864, typ: 'gipfel', land: 'SI' },
+  { id: 'watzmann',       name: 'Watzmann',          lat: 47.5544, lon: 12.9225, h: 2713, typ: 'gipfel', land: 'DE' },
+  { id: 'saentis',        name: 'Säntis',            lat: 47.2494, lon: 9.3433,  h: 2502, typ: 'gipfel', land: 'CH' },
+  { id: 'pilatus',        name: 'Pilatus',           lat: 46.9790, lon: 8.2550,  h: 2128, typ: 'gipfel', land: 'CH' },
+  { id: 'rigi',           name: 'Rigi',              lat: 47.0567, lon: 8.4850,  h: 1798, typ: 'gipfel', land: 'CH' },
+
+  // Hütten
+  { id: 'hoernlihuette',  name: 'Hörnlihütte',        lat: 45.9822, lon: 7.6831,  h: 3260, typ: 'huette', land: 'CH' },
+  { id: 'margherita',     name: 'Capanna Margherita', lat: 45.9272, lon: 7.8767,  h: 4554, typ: 'huette', land: 'IT' },
+  { id: 'gouter',         name: 'Refuge du Goûter',   lat: 45.8506, lon: 6.8317,  h: 3835, typ: 'huette', land: 'FR' },
+  { id: 'jungfraujoch',   name: 'Jungfraujoch',       lat: 46.5474, lon: 7.9854,  h: 3463, typ: 'huette', land: 'CH' },
+  { id: 'erzherzog',      name: 'Erzherzog-Johann-Hütte', lat: 47.0681, lon: 12.6944, h: 3454, typ: 'huette', land: 'AT' },
+  { id: 'auronzo',        name: 'Rifugio Auronzo',    lat: 46.6125, lon: 12.2950, h: 2320, typ: 'huette', land: 'IT' },
+
+  // Orte
+  { id: 'zermatt',        name: 'Zermatt',           lat: 46.0207, lon: 7.7491,  h: 1608, typ: 'ort', land: 'CH' },
+  { id: 'chamonix',       name: 'Chamonix',          lat: 45.9237, lon: 6.8694,  h: 1035, typ: 'ort', land: 'FR' },
+  { id: 'grindelwald',    name: 'Grindelwald',       lat: 46.6242, lon: 8.0414,  h: 1034, typ: 'ort', land: 'CH' },
+  { id: 'interlaken',     name: 'Interlaken',        lat: 46.6863, lon: 7.8632,  h: 568,  typ: 'ort', land: 'CH' },
+  { id: 'andermatt',      name: 'Andermatt',         lat: 46.6355, lon: 8.5939,  h: 1444, typ: 'ort', land: 'CH' },
+  { id: 'stmoritz',       name: 'St. Moritz',        lat: 46.4908, lon: 9.8355,  h: 1822, typ: 'ort', land: 'CH' },
+  { id: 'davos',          name: 'Davos',             lat: 46.8027, lon: 9.8360,  h: 1560, typ: 'ort', land: 'CH' },
+  { id: 'luzern',         name: 'Luzern',            lat: 47.0502, lon: 8.3093,  h: 436,  typ: 'ort', land: 'CH' },
+  { id: 'zuerich',        name: 'Zürich',            lat: 47.3769, lon: 8.5417,  h: 408,  typ: 'ort', land: 'CH' },
+  { id: 'bern',           name: 'Bern',              lat: 46.9480, lon: 7.4474,  h: 540,  typ: 'ort', land: 'CH' },
+  { id: 'lugano',         name: 'Lugano',            lat: 46.0037, lon: 8.9511,  h: 273,  typ: 'ort', land: 'CH' },
+  { id: 'aosta',          name: 'Aosta',             lat: 45.7370, lon: 7.3201,  h: 583,  typ: 'ort', land: 'IT' },
+  { id: 'grenoble',       name: 'Grenoble',          lat: 45.1885, lon: 5.7245,  h: 212,  typ: 'ort', land: 'FR' },
+  { id: 'innsbruck',      name: 'Innsbruck',         lat: 47.2692, lon: 11.4041, h: 574,  typ: 'ort', land: 'AT' },
+  { id: 'garmisch',       name: 'Garmisch',          lat: 47.4917, lon: 11.0955, h: 708,  typ: 'ort', land: 'DE' },
+  { id: 'salzburg',       name: 'Salzburg',          lat: 47.8095, lon: 13.0550, h: 424,  typ: 'ort', land: 'AT' },
+  { id: 'bozen',          name: 'Bozen',             lat: 46.4983, lon: 11.3548, h: 262,  typ: 'ort', land: 'IT' },
+  { id: 'cortina',        name: "Cortina d'Ampezzo", lat: 46.5405, lon: 12.1357, h: 1224, typ: 'ort', land: 'IT' },
+];
+
+const TYP_NAMEN = { gipfel: 'Gipfel', huette: 'Hütte', ort: 'Ort', eigen: 'Wegpunkt' };
+
+const MODI = {
+  wandern:  { name: 'Wandern',  kmh: 4,  hmProStunde: 400, stundenProTag: 6 },
+  hochtour: { name: 'Hochtour', kmh: 3,  hmProStunde: 300, stundenProTag: 7 },
+  velo:     { name: 'Velo',     kmh: 15, hmProStunde: 600, stundenProTag: 5 },
+};
